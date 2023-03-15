@@ -1,5 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray, FastField} from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -29,12 +36,21 @@ const validationSchema = Yup.object({
   channel: Yup.string().required("Required"),
 });
 
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = "Required";
+  }
+  return error;
+};
+
 const YoutubeForm = () => {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      // validateOnChange={false} don't validate after element's onChange event
     >
       <Form>
         <div className="form-control">
@@ -64,7 +80,12 @@ const YoutubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="comments">Comments</label>
-          <Field as="textarea" id="comments" name="comments" />
+          <Field
+            as="textarea"
+            id="comments"
+            name="comments"
+            validate={validateComments}
+          />
           <ErrorMessage name="comments" component={TextError} />
         </div>
 
