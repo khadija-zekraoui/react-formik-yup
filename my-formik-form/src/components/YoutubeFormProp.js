@@ -24,9 +24,12 @@ const initialValues = {
   phNumbers: [""],
 };
 
-const onSubmit = (values) => {
-  console.log("Form data", values);
-};
+const onSubmit = (values, submitProps) => {
+  console.log('Form data', values)
+  console.log('submitProps', submitProps)
+  submitProps.setSubmitting(false)
+  submitProps.resetForm()
+}
 
 // validation using Yup
 //Formik run validation after any element's onChange/onBlur/submit events
@@ -51,6 +54,7 @@ const YoutubeForm = () => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       // validateOnChange={false} don't validate after element's onChange event
+      // validateOnMount validate form when rendering the form.
     >
       {(formik) => {
         console.log("formic props", formik);
@@ -189,7 +193,12 @@ const YoutubeForm = () => {
               Visit all
             </button>
 
-            <button type="submit">Submit</button>
+            <button
+              type='submit'
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
+              Submit
+            </button>
           </Form>
         );
       }}
