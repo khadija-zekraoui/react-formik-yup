@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import YoutubeFormProp from './components/YoutubeFormProp'
+import YoutubeFormData from './components/YoutubeFormData'
 
 function App () {
   return (
     <div className='App'>
-      <YoutubeFormProp />
+      <YoutubeFormData />
     </div>
   )
 }
